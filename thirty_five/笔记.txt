@@ -1,0 +1,24 @@
+[天龙八部]
+   1、连接数据库
+   2、判断数据库是否连接成功
+   3、设置字符集
+   4、选择数据库
+   5、准备SQL语句
+   6、发送SQL语句
+   7、处理结果集
+   8、释放资源(关闭数据库)
+
+
+   $result = mysqli_query($link,$sql); //返回一个对象
+
+   mysqli_fetch_assoc($result);  一个一个往下读 返回的时候一个一维关联数组
+
+   mysqli_fetch_row($result) 返回一个索引数组
+
+   mysqli_fetch_array($result) 返回一个有索引又有关联的数组
+
+   mysqli_num_rows($result) 返回查询时候的结果集的总条数
+
+   mysqli_affected_rows($link) 返回你修改的,删除,添加的时候受影响的行数
+
+   mysqli_insert_id($link); 返回的是你插入的当前的数据的自增的id

@@ -1,0 +1,165 @@
+你想在一个库里面建表的时候 首先你要记得use 使用当前的库
+Use 库名
+[创建表]
+   Create table 表名(id int, name varchar(35),price int);
+   Id name price 是字段  后面的限制是类型
+  
+[删除表]
+   Drop table 表名字
+[查看表结构]
+   Desc 表名字 
+[查看建库语句]
+   Show create table 表名字
+[修改表建表语句]
+   Show create table 表名字
+[修改表字段值]
+  Alter tale 表名 modify 字段名字 修改后的值;
+[修改表字段]
+  Alter table 表名  change 原来字段名 修改后字段名(你要修改成为的类型)
+[添加表字段]
+  alter table 表名 add 字段名字 (字段类型)
+[删除表字段]
+  Alter table 表名 drop 字段名字
+[插入顺序的问题]
+  First
+     Alter table 表名 add 你要添加的字段(字段类型) first
+  After
+     Alter table 表名 add 你要添加的字段名字(字段类型) after (在谁后面)
+[修改表名字]
+  Alter table 原表名  rename 新的名字
+ 
+[给某个表的字段添加索引] 
+  alter table 表名 index(字段);
+
+[给某个字段添加唯一索引]
+alter table 表名 unique(字段);
+
+
+[给某个字段添加全文索引]
+alter table 表名 fulltext(字段);
+
+[给某个字段添加唯一索引]
+alter table 表名 primary key(字段);
+
+
+[查看给哪些字段添加了索引]
+show index from 表名；
+
+
+[查询某张表]
+select *  from 表名
+
+[查询某张表多少条数据]
+Select count(*) from 表名
+Select count(1) from 表名
+
+
+[增加一条数据]
+Insert into 表名 values('字段名1','字段名2','字段名3','字段名4','字段名5');
+
+
+
+[增加2条数据](2条数据)
+insert into 表名('username','password','sex','address') values('字段名1','字段名2','字段名3','字段名4'),('字段名1','字段名2','字段名3','字段名4')
+
+[增加3条数据]
+insert into 表名('username','password','sex','address') values('字段名1','字段名2','字段名3','字段名4'),('字段名1','字段名2','字段名3','字段名4'),('字段名1','字段名2','字段名3','字段名4')
+
+
+
+[修改数据]
+Update  set 表名 set address="广西" where id = 1
+
+
+[删除所有数据]
+Delete form  表名
+
+
+[删除某个表中的一条数据]
+Delete from 表名 where id = 1
+
+
+--查询某张表的年龄在什么区间上面
+select * from 表名 where 表字段(age）  between 50 and 80;
+
+
+--查询某张表的年龄是那个年龄或者这个年龄(取某个条件成立就可以了)
+select * from 表名 where age = 50 or age = 80;
+
+
+--查询某张表的年龄不在这个年龄之间的(排除某个年龄)
+select * from 表名  where age != 50;
+
+
+--查询某张表年龄在什么范围内
+SELECT * from 表名 where age in(40,50,60,70);
+
+--模糊查询----
+select * from user where address like '香%';
+select * from user where address like '%香%';
+select * from user where address like '香_';
+select * from user where address like '_香';
+
+
+--根据地址分组(把重复的过滤掉)----
+select  * FROM 表名 group by address;
+
+
+--根据年龄升序(默认不写为升序asc)
+select  *  from 表名 order by age;
+select  *  from 表名 order by age asc;
+select  *  from 表名 order by age desc;
+
+
+--取别名 as 不要空格也是取别名--
+select username as '用户名',age as '年龄' from `user` where id  = 1;
+select username  '用户名',age '年龄' from `user` where id  = 1;
+
+--表示取表中的前5条数据（从第1条开始，取5条）
+select * from user limit 0,5;
+select * from user limit 0,3;
+
+
+--显示有几张表--
+Show 表名；
+例子:
+show tables;
+
+--按地址来分组并且排序----
+select * from  shop_user group by address limit 0,5;
+
+--根据年龄降序排序并且分页---
+select * from shop_user where age > 20 order by desc LIMIT 0,3;
+
+
+
+--内连接--
+select 表1.字段1 as '别名',表1.字段2 as ‘别名’ from 表1 inner join 表2 on
+条件(表1和表2出现的相同的字段,如id,例子有表1.gid = 表2.id）
+例子:
+select username as '用户名',age as '年龄' from shop_user inner JOIN shop_goods on shop_user.gid = shop_goods.id;
+
+
+--左连接(查询左边所有的,没出现的右边不会查询出来)
+select 表1.字段1 as '别名',表1.字段2 as ‘别名’ from 表1 left join 表2 on
+条件(表1和表2出现的相同的字段,如id,例子有表1.gid = 表2.id）
+例子：
+select  username  as '用户名',age  as '年龄'  from shop_user left join shop_goods on shop_user.gid = shop_goods.id;
+
+--右连接(查询右边所有的,没出现的左边不会查询出来)
+select 表1.字段1 as '别名',表1.字段2 as ‘别名’ from 表1 right join 表2 on
+条件(表1和表2出现的相同的字段,如id,例子有表1.gid = 表2.id）
+例子：
+select username as '用户名',age as '年龄'  from  shop_user right  join shop_goods on shop_user.gid = shop_goods.id;
+
+--嵌套查询
+Select 字段 from 表1 where 字段 in(select id from 表2)
+例子：
+select username as '用户名',age as '年龄' from shop_user where gid in (select id  from shop_goods);
+
+
+
+
+
+
+

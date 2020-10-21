@@ -1,0 +1,87 @@
+[图像处理函数]
+    1、 创建画布(资源)
+    2、 创建颜色
+    3、 用GD库给咱们的函数来画画东西
+    4、 告知浏览器你的mine类型
+    5、 输出到浏览器 或者你可以保存到你的本地
+    6、 销毁资源
+
+[关于gd的相关函数]
+   imagecreatetruecolor //创建一个画布
+   imagecolorallocate //为一幅图像分配颜色
+   imagefill 填充
+   imageline 画线
+
+[输出]
+   imagepng 输出(资源) 可以传两个参数 一个: 资源   二个 路径 文件名
+   imagejpeg
+   imagegif
+   iamgewbmp
+
+[形状]
+   imagerectangle 矩形
+   imagefilledrectangele 画一个矩形并且填充
+   imagesetpixel 画像素
+   imagepolygon 画多边形
+   imageellipse  画椭圆
+   imagefilledpolygon 画一个多边形并且填充
+   imagefilledellipse 画一个椭圆并填充
+   imagefilledarc 可以饼状图
+
+   [打开图片生成一个新的图片]
+   imagecreatefromjpeg
+   imagecreatefromgif
+   imagecreatefromwbmp
+   imagecreatefrompng
+
+   [注意]
+     告知浏览器文件的类型
+     header('Content-type:image/png');
+
+   [旋转]
+     imagerotate
+
+   [写字]
+     imagestring 水平地画一行字符串 不能写中文
+     imagechar  画一个 不能中文
+     imagettftext  可以写汉字（资源,字体大小,角度,坐标x
+     ,坐标y,颜色,样式（你从window、font）,你要写的字符串）
+
+   [拷贝并且合并]
+      imagecopy
+      imageopymerge
+         imagecopymerge($dst,$src,152,305,0,0,266,280,100);
+          大图 戳 大图的开始坐标 x y 小图 x  y 小图的宽  高 透明度
+         imagecopyresampled
+         imagecopyresampled($dst,$src,155,310,265,179,300,300,144,127);
+
+
+      [获取图片的信息]
+         记住
+         getimagesize('图片资源');  获取图片的信息
+
+      [相关函数] 创建图像资源函数:
+         imagecreatetruecolor
+         imagecreatefromjpeg
+         imagecreatefromgif
+         imagecreatefrombmp
+         imagecreatefrompng
+         imagecolorallocate
+         imagefilledtectangle
+         imagesetpixel
+         imageline
+         imagerectangle
+         imagepolygon
+         imageellipse
+         imagearc
+
+         imagefilledrectangele
+         imagefilledpolygon
+         imagefilledellipse
+         imagefilledarc
+         imagestring
+         imagechar
+         imagettftext
+         imagepng($img,['path'])
+         imagejpeg
+         imagegif

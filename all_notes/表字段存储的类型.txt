@@ -1,0 +1,33 @@
+[整型]
+整型            所占字节      取值范围
+tinyint        1字节         -128～127 1 2 0
+smallint       2字节         -32768～32767
+Mediumint      3字节         -8388608～8388607
+int            4字节         -2147483648～2147483647
+bigint         8字节         +-9.22*10的18次方
+
+
+
+[浮点类型]
+float(m,d)    4字节         单精度浮点型,m总个数,d小数位
+double(m,d)   8字节         双精度浮点型,m总个数,d小数位
+decimal(m,d)  decimal是存储为字符串的总数
+
+[字符串类型]
+Char          0-255字节      定长字符串
+Varchar       0-655355字节   变长字符串
+
+[时间类型]
+Date          4字节       日期,格式: 2014-09-18
+
+[auto_increment]
+
+自动增加,只用于整型,可以设置起始值,默认为1
+
+常与后面promary key一起使用 
+
+创建表时在整型字段后加上: auto_increment=起始值 primary key
+
+修改起始值: alter table user auto_increment=起始值
+
+

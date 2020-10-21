@@ -1,0 +1,132 @@
+我们来总结一下这个类的使用过程，先实例话template类，调用template::display()方法，其中会调用template::compiles()方法，这个方法会实例化
+_HhtmlTag类，调用_HtmlTag::render方法，在这个方法里，对传入的带字符串进行一个结构的完整化，包括调用_HtmlTag::_extends,_HtmlTag::_import，
+_HtmlTag::_loop,_HtmlTag::_if,_HtmlTag:: elseif ,_HtmlTag:: else ,_HtmlTag::_for,_HtmlTag:: while 接着调用_HtmlTag::result方法，里面
+调用_HtmlTag::_end方法对变量进行php原生化和_HtmlTag::_baseParse()引入css和js，最后返回解析好的完整模板字符串。
+
+
+模板引擎实现的原理：
+
+访问php文件, php文件会去加载模板引擎，通过模板引擎去加载模板然后替换模板里面的变量 然后生成一个编译文件
+
+最后将该编译文件导入 访问的php文件中输出 第二次访问的时候 如果 缓存文件存在或者没有被改动则直接 导入缓存文件 输出
+
+否则重新编译
+
+
+自定义的一个模板引擎 mytpl.class.php
+
+<?php
+
+class mytpl{
+
+//指定模板目录
+
+private $template_dir;
+
+//编译后的目录
+
+private $compile_dir;
+
+//读取模板中所有变量的数组
+
+private $arr_var=array();
+
+//构造方法
+
+public function __construct($template_dir="./templates",$compile_dir="./templates_c")
+
+{
+
+$this->template_dir=rtrim($template_dir,"/")."/";
+
+$this->compile_dir=rtrim($compile_dir,"/")."/";
+
+}
+
+//模板中变量分配调用的方法
+
+public function assign($tpl_var,$value=null){
+
+$this->arr_var[$tpl_var]=$value;
+
+}
+
+//调用模板显示
+
+public function display($fileName){
+
+$tplFile=$this->template_dir.$fileName;
+
+if(!file_exists($tplFile)){
+
+return false;
+
+}
+
+//定义编译合成的文件 加了前缀 和路径 和后缀名.php
+
+$comFileName=$this->compile_dir."com_".$fileName.".php";
+
+if(!file_exists($comFileName) || filemtime($comFileName)< filemtime($tplFile)){//如果缓存文件不存在则 编译 或者文件修改了也编译
+
+$repContent=$this->tmp_replace(file_get_contents($tplFile));//得到模板文件 并替换占位符 并得到替换后的文件
+
+file_put_contents($comFileName,$repContent);//将替换后的文件写入定义的缓存文件中
+
+}
+
+//包含编译后的文件
+
+include $comFileName;
+
+}
+
+//替换模板中的占位符
+
+private function tmp_replace($content){
+
+$pattern=array(
+
+'/\<\!--\s*\$([a-zA-Z]*)\s*--\>/i'
+
+);
+
+$replacement=array(
+
+'<?php echo $this->arr_var["${1}"]; ?>'
+
+);
+
+$repContent=preg_replace($pattern,$replacement,$content);
+
+return $repContent;
+
+}
+
+}
+
+//使用该模板引擎
+
+<?php
+
+//导入模板引擎类
+
+include"mytpl.class.php";
+
+$title="this is title";
+
+$content="this is content";
+
+$tpl=new mytpl();
+
+//分配变量
+
+$tpl->assign("title",$title);
+
+$tpl->assign("content",$content);
+
+//指定处理的模板
+
+$tpl->display("tpl.html");
+
+?>

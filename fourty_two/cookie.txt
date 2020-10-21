@@ -1,0 +1,24 @@
+cookie存取:   setcookie('键','值',存取日期/失效时间,作用域);
+例子: setcookie('name','张三',time()+60,'/');
+cookie失效期:
+例子： setcookie('name','张三',time()+-1,'/');
+
+
+cookie存在客户端的,session存在服务端的
+用session的时候,客户端会存一个session_id号
+
+var_dump($_COOKIE);  //获取当前页面是否有cookie
+
+
+$字段名 = $_GET['字段']
+$_COOKIE['字段'];
+
+
+以登录的例子为例
+   $username = $_GET['username']; //获取用户名
+   $password = $_GET['password']; //获取密码
+
+ 存取cookie:  setcookie('字段名',$username,time()+60,'');
+
+获取cookie是否为某个用户的cookie
+if($_COOKIE['username'] == 'zhangsan') //如果是干什么,不是干什么

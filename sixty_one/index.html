@@ -1,0 +1,42 @@
+extends ./main}
+{block head}
+<link rel="stylesheet" href="./test,test1.css?v=74be16979710d4c4e7c6647856088456">
+<? 
+ if(!empty($data)) {
+ 	 foreach($data as $k => $v){?>
+<p>
+    我是头部
+</p>
+<? 	}
+}?>
+<? if( $bb == 'aa' ){?>
+<p>
+    我是 if 测试
+</p>
+<? }elseif( $bb = 'bb' ){?>
+<p>
+    我是elesif测试
+</p>
+{ else }
+<p>
+    我是eles测试
+</p>
+{/ if }
+<? for( $i ; =0 ; $i ; <10 ; $i ; ++){?>
+<p>
+    我是 for 循环
+</p>
+{/ for }
+<? while( $con >5){ ?>
+<? $con --;?>
+<p>
+    我是 while 循环
+</p>
+{/ while }
+{/block}
+{block foot}
+<p>
+    我是尾部
+</p>
+<script src="./test1,test.js?v=74be16979710d4c4e7c6647856088456"></script>
+{/block}

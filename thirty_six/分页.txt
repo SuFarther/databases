@@ -1,0 +1,13 @@
+求出来总条数  13条数据
+
+每页显示5条
+
+总页数: ceil(总条数 / 每页显示数) / 3
+
+select * from shop_user limit 0,5 这是第一页  1
+select * from shop_user limit 5,5 这是第一页  2
+select * from shop_user limit 10,5 这是第一页  3
+select * from shop_user limit 15,5 这是第一页  4
+
+推出的公式(求出每页偏移量)
+   ($page - 1)*$num(每页显示数5)
